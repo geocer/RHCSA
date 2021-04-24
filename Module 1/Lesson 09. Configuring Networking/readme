@@ -1,0 +1,35 @@
+ip link show
+ip addr show
+ip route show
+ip addr add dev ens33 192.168.0.248/24
+ip -s link
+ip route add 20.0.0.0/8 via 192.168.0.248
+
+===========
+vim /etc/sysconfig/network-scripts/ifcfg-ens33
+#BOOTPROTO=none
+#IPADDR0
+#PREFIX0
+#GATEWAY0
+#ONBOOT=yes
+vim /etc/hostname
+hostnamectl set-hostname your-new-hostname
+init 6
+vim /etc/resolv.conf
+
+
+==============
+nmcli connection show 
+nmcli conn add con-name testing ifname ens33 type ethernet ip4 192.168.0.248/24
+nmcli conn down ens33 
+nmcli conn up ens33 
+
+==============
+
+nmtui
+systemctl restart NetworkManager
+
+==============
+
+host ldap.rhatcertification.com
+dig ldap.rhatcertification.com
