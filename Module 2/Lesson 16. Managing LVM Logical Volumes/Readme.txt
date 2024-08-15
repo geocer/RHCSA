@@ -22,6 +22,8 @@ pvs
 vgcreate vg_data /dev/sdb3
 vgs
 lvcreate -n lv_data -L 100M vg_data
+lvextend -l +100%FREE /dev/vg_data/lv_data
+lvdisplay 
 lvs
 mkfs.ext2 /dev/vg_data/lv_data
 mount /dev/vg_data/lv_data /mnt
